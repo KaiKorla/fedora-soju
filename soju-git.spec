@@ -43,8 +43,9 @@ soju is a user-friendly IRC bouncer. soju connects to upstream IRC servers on be
 %global commitdate $(date +%Y%m%d)
 
 curl -L -o soju-source.tar.gz %{upstream}/archive/%{commit}.tar.gz
+topdir=$(tar -tzf soju-source.tar.gz | head -1 | cut -f1 -d"/")
 tar -xzf soju-source.tar.gz
-cd soju-%{commit}
+cd "$topdir"
 
 %{!?_with_versionhack:%global _with_versionhack 1}
 %define _use_internal_dependency_generator 0
