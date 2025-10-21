@@ -8,15 +8,11 @@ URL:                https://soju.im
 %global             upstream_base   https://codeberg.org/emersion/soju
 %global             upstream        %{upstream_base}.git
 %global             branch          master
-%global             tag             %(git ls-remote --tags %{upstream} | awk -F'/' '{print $NF}' | grep -E '^v?[0-9]+\\.[0-9]+(\\.[0-9]+)?$' | sed 's/^v//' | sort -V | tail -n1)
-%global             commit          %(git ls-remote %{upstream} %{branch} | awk '{print $1}' | cut -c1-7)
-%global             shortcommit     %(echo %{commit} | cut -c1-7)
-%global             commitdate      %(date +%Y%m%d)
 
-Version:            %{tag}
-Release:            0.git%{commitdate}.%{shortcommit}%{?dist}
+Version:            0
+Release:            0.git%{?dist}
 
-Source0:            %{upstream_base}/archive/%{commit}.tar.gz#/soju-%{commit}.tar.gz
+Source0:            soju-source.tar.gz
 Source1:            soju-sysusers.conf
 Source2:            soju-tmpfiles.conf
 Source3:            soju.service
@@ -41,7 +37,20 @@ Requires(postun):   systemd
 soju is a user-friendly IRC bouncer. soju connects to upstream IRC servers on behalf of the user to provide extra functionality. soju supports many features such as multiple users, numerous IRCv3 extensions, chat history playback and detached channels. It is well-suited for both small and large deployments.
 
 %prep
-%autosetup -n %{name}-%{version}
+%global tag $(git ls-remote --tags %{upstream} | awk -F'/' '{print $NF}' | grep -E '^v?[0-9]+\\.[0-9]+(\\.[0-9]+)?$' | sed 's/^v//' | sort -V | tail -n1)
+
+%global commit $(git ls-remote %{upstream} %{branch} | awk '{print $1}' | cut -c1-7)
+%global shortcommit $(echo %{commit} | cut -c1-7)
+%global commitdate $(date +%Y%m%d)
+
+curl -L -o soju-source.tar.gz %{upstream}/archive/%{commit}.tar.gz
+tar -xzf soju-source.tar.gz
+cd soju-%{commit}
+
+%{!?_with_versionhack:%global _with_versionhack 1}
+%define _use_internal_dependency_generator 0
+Version: %{tag}
+Release: 0.git%{commitdate}.%{shortcommit}%{?dist}
 
 %build
 %make_build
