@@ -1,27 +1,30 @@
-Name:           soju
-Version:        0.9.0
-Release:        1%{?dist}
-Summary:        A user-friendly IRC bouncer
+Name:               soju
+Version:            0.9.0
+Release:            1%{?dist}
+Summary:            A user-friendly IRC bouncer
 
-License:        AGPL-3.0-or-later
-URL:            https://soju.im
-Source0:        https://codeberg.org/emersion/soju/releases/download/v%{version}/soju-%{version}.tar.gz
-Source1:	soju-sysusers.conf
-Source2:	soju-tmpfiles.conf
-Source3:	soju.service
+License:            AGPL-3.0-or-later
+URL:                https://soju.im
+Source0:            https://codeberg.org/emersion/soju/releases/download/v%{version}/soju-%{version}.tar.gz
+Source1:            soju-sysusers.conf
+Source2:            soju-tmpfiles.conf
+Source3:            soju.service
 
-BuildRequires:	git
-BuildRequires:	go
-BuildRequires:	sqlite-devel
-BuildRequires:	scdoc
+BuildRequires:      git
+BuildRequires:      go
+BuildRequires:      sqlite-devel
+BuildRequires:      scdoc
 
-Suggests:	sqlite
-Suggests:	postgresql
+Suggests:           sqlite
+Suggests:           postgresql
 
-BuildRequires: systemd-rpm-macros
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+Provides:           soju = %{version}-%{release}
+Conflicts:          soju
+
+BuildRequires:      systemd-rpm-macros
+Requires(post):     systemd
+Requires(preun):    systemd
+Requires(postun):   systemd
 
 %description
 soju is a user-friendly IRC bouncer. soju connects to upstream IRC servers on behalf of the user to provide extra functionality. soju supports many features such as multiple users, numerous IRCv3 extensions, chat history playback and detached channels. It is well-suited for both small and large deployments.
