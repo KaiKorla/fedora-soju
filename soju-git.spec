@@ -1,5 +1,5 @@
-Name:               soju
-Summary:            A user-friendly IRC bouncer
+Name:               soju-git
+Summary:            A user-friendly IRC bouncer (git snapshot)
 
 License:            AGPL-3.0-or-later
 URL:                https://soju.im
