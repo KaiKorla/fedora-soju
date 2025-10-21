@@ -8,7 +8,7 @@ URL:                https://soju.im
 %global             upstream_base   https://codeberg.org/emersion/soju
 %global             upstream        %{upstream_base}.git
 %global             branch          master
-%global             tag             %(git ls-remote --tags %{upstream} | grep -v '{}' | sort -V | tail -n1 | sed 's/.*\\///;s/^v//')
+%global             tag             %(git ls-remote --tags %{upstream} | awk -F'/' '{print $NF}' | grep -E '^v?[0-9]+\\.[0-9]+(\\.[0-9]+)?$' | sed 's/^v//' | sort -V | tail -n1)
 %global             commit          %(git ls-remote %{upstream} %{branch} | awk '{print $1}' | cut -c1-7)
 %global             shortcommit     %(echo %{commit} | cut -c1-7)
 %global             commitdate      %(date +%Y%m%d)
