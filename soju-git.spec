@@ -38,8 +38,8 @@ soju is a user-friendly IRC bouncer. soju connects to upstream IRC servers on be
 %prep
 %global tag $(git ls-remote --tags %{upstream} | awk -F'/' '{print $NF}' | grep -E '^v?[0-9]+\\.[0-9]+(\\.[0-9]+)?$' | sed 's/^v//' | sort -V | tail -n1)
 
-%global commit $(git ls-remote %{upstream} %{branch} | awk '{print $1}' | cut -c1-7)
-%global shortcommit $(echo %{commit} | cut -c1-7)
+%global commit %(git ls-remote %{upstream} %{branch} | awk '{print $1}')
+%global shortcommit %(echo %{commit} | cut -c1-7)
 %global commitdate $(date +%Y%m%d)
 
 curl -L -o soju-source.tar.gz %{upstream}/archive/%{commit}.tar.gz
