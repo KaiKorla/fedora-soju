@@ -12,10 +12,9 @@ URL:                https://soju.im
 Version:            0
 Release:            0.git%{?dist}
 
-Source0:            soju-source.tar.gz
-Source1:            soju-sysusers.conf
-Source2:            soju-tmpfiles.conf
-Source3:            soju.service
+Source0:            soju-sysusers.conf
+Source1:            soju-tmpfiles.conf
+Source2:            soju.service
 
 Provides:           soju = %{version}-%{release}
 Conflicts:          soju
