@@ -47,11 +47,6 @@ topdir=$(tar -tzf soju-source.tar.gz | head -1 | cut -f1 -d"/")
 tar -xzf soju-source.tar.gz
 cd "$topdir"
 
-%{!?_with_versionhack:%global _with_versionhack 1}
-%define _use_internal_dependency_generator 0
-Version: %{tag}
-Release: 0.git%{commitdate}.%{shortcommit}%{?dist}
-
 %build
 %make_build
 
