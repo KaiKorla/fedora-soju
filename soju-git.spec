@@ -1,20 +1,21 @@
 Name:               soju
-Version:            %{?tagged_version:%{tagged_version}}%{!?tagged_version:0}
-Release:            0.%{?commitdate}.%{?shortcommit}%{?dist}
 Summary:            A user-friendly IRC bouncer
 
 License:            AGPL-3.0-or-later
 URL:                https://soju.im
 
+# === Upstream definitions ===
 %global             upstream_base   https://codeberg.org/emersion/soju
 %global             upstream        %{upstream_base}.git
 %global             branch          master
 %global             tag             %(git ls-remote --tags %{upstream} | grep -v '{}' | sort -V | tail -n1 | sed 's/.*\\///;s/^v//')
 %global             commit          %(git ls-remote %{upstream} %{branch} | awk '{print $1}' | cut -c1-7)
-%global             commitdate      %(date +%Y%m%d)
 %global             shortcommit     %(echo %{commit} | cut -c1-7)
+%global             commitdate      %(date +%Y%m%d)
 
-Version:            %{tag}+git%{shortcommit}
+Version:            %{tag}
+Release:            0.git%{commitdate}.%{shortcommit}%{?dist}
+
 Source0:            %{upstream_base}/archive/%{commit}.tar.gz#/soju-%{commit}.tar.gz
 Source1:            soju-sysusers.conf
 Source2:            soju-tmpfiles.conf
