@@ -48,6 +48,8 @@ tar -xzf soju-source.tar.gz
 cd "$topdir"
 
 %build
+topdir=$(tar -tzf soju-source.tar.gz | head -1 | cut -f1 -d"/")
+cd "$topdir"
 %make_build
 
 %install
