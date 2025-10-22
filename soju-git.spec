@@ -9,9 +9,12 @@ URL:                https://soju.im
 %global             upstream        %{upstream_base}.git
 %global             branch          master
 %global             tag %(git ls-remote --tags %{upstream} | awk -F'/' '{print $NF}' | grep -E '^v?[0-9]+\\.[0-9]+(\\.[0-9]+)?$' | sed 's/^v//' | sort -V | tail -n1)
+%global             commit %(git ls-remote %{upstream} %{branch} | awk '{print $1}')
+%global             shortcommit %(echo %{commit} | cut -c1-7)
+%global             commitdate $(date +%Y%m%d)
 
 Version:            %{tag}
-Release:            0.git%{?dist}
+Release:            0.git%{commitdate}.%{shortcommit}%{?dist}
 
 Source0:            soju-sysusers.conf
 Source1:            soju-tmpfiles.conf
@@ -37,12 +40,6 @@ Requires(postun):   systemd
 soju is a user-friendly IRC bouncer. soju connects to upstream IRC servers on behalf of the user to provide extra functionality. soju supports many features such as multiple users, numerous IRCv3 extensions, chat history playback and detached channels. It is well-suited for both small and large deployments.
 
 %prep
-%global tag $(git ls-remote --tags %{upstream} | awk -F'/' '{print $NF}' | grep -E '^v?[0-9]+\\.[0-9]+(\\.[0-9]+)?$' | sed 's/^v//' | sort -V | tail -n1)
-
-%global commit %(git ls-remote %{upstream} %{branch} | awk '{print $1}')
-%global shortcommit %(echo %{commit} | cut -c1-7)
-%global commitdate $(date +%Y%m%d)
-
 curl -L -o soju-source.tar.gz %{upstream}/archive/%{commit}.tar.gz
 topdir=$(tar -tzf soju-source.tar.gz | head -1 | cut -f1 -d"/")
 tar -xzf soju-source.tar.gz
