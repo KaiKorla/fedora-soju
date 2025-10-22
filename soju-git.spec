@@ -8,8 +8,9 @@ URL:                https://soju.im
 %global             upstream_base   https://codeberg.org/emersion/soju
 %global             upstream        %{upstream_base}.git
 %global             branch          master
+%global             tag %(git ls-remote --tags %{upstream} | awk -F'/' '{print $NF}' | grep -E '^v?[0-9]+\\.[0-9]+(\\.[0-9]+)?$' | sed 's/^v//' | sort -V | tail -n1)
 
-Version:            0
+Version:            %{tag}
 Release:            0.git%{?dist}
 
 Source0:            soju-sysusers.conf
