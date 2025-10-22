@@ -11,7 +11,7 @@ URL:                https://soju.im
 %global             tag %(git ls-remote --tags %{upstream} | awk -F'/' '{print $NF}' | grep -E '^v?[0-9]+\\.[0-9]+(\\.[0-9]+)?$' | sed 's/^v//' | sort -V | tail -n1)
 %global             commit %(git ls-remote %{upstream} %{branch} | awk '{print $1}')
 %global             shortcommit %(echo %{commit} | cut -c1-7)
-%global             commitdate $(date +%Y%m%d)
+%global             commitdate %(date +%Y%m%d)
 
 Version:            %{tag}
 Release:            0.git%{commitdate}.%{shortcommit}%{?dist}
