@@ -62,8 +62,6 @@ install -Dm0644 %{SOURCE2} %{buildroot}%{_unitdir}/soju.service
 find %{buildroot}
 
 %files
-topdir=$(tar -tzf soju-source.tar.gz | head -1 | cut -f1 -d"/")
-cd "$topdir"
 %license LICENSE
 %doc README.md
 
