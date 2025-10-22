@@ -59,11 +59,13 @@ cd "$topdir"
 install -Dm0644 %{SOURCE0} %{buildroot}%{_sysusersdir}/soju.conf
 install -Dm0644 %{SOURCE1} %{buildroot}%{_tmpfilesdir}/soju.conf
 install -Dm0644 %{SOURCE2} %{buildroot}%{_unitdir}/soju.service
+install -D -m0644 LICENSE %{buildroot}%{_datadir}/licenses/%{name}/LICENSE
+install -D -m0644 README.md %{buildroot}%{_datadir}/doc/%{name}/README.md
 find %{buildroot}
 
 %files
-%license LICENSE
-%doc README.md
+%license %{_datadir}/licenses/%{name}/LICENSE
+%doc %{_datadir}/doc/%{name}/README.md
 
 %config(noreplace) /etc/soju/config
 
