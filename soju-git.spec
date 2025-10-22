@@ -56,9 +56,9 @@ cd "$topdir"
 topdir=$(tar -tzf soju-source.tar.gz | head -1 | cut -f1 -d"/")
 cd "$topdir"
 %make_install PREFIX=%{_prefix} DESTDIR=%{buildroot}
-install -Dm0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/soju.conf
-install -Dm0644 %{SOURCE2} %{buildroot}%{_tmpfilesdir}/soju.conf
-install -Dm0644 %{SOURCE3} %{buildroot}%{_unitdir}/soju.service
+install -Dm0644 %{SOURCE0} %{buildroot}%{_sysusersdir}/soju.conf
+install -Dm0644 %{SOURCE1} %{buildroot}%{_tmpfilesdir}/soju.conf
+install -Dm0644 %{SOURCE2} %{buildroot}%{_unitdir}/soju.service
 find %{buildroot}
 
 %files
