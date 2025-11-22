@@ -1,5 +1,5 @@
 Name:               soju
-Version:            0.10.0
+Version:            0.10.1
 Release:            1%{?dist}
 Summary:            A user-friendly IRC bouncer
 
